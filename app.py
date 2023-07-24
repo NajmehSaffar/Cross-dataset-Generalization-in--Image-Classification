@@ -65,5 +65,6 @@ def classify_image():
     # Return the predictions
     return jsonify({'prediction': predicted_class})
 
+
 if __name__ == '__main__':
     app.run()
