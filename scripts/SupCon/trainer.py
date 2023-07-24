@@ -227,7 +227,7 @@ class Trainer:
         #print('\nAccuracy of the network on test images: %d %%\n' % (100 * correct / total))
         plot_CONFMAT(lbllist.numpy(), predlist.numpy(), dirname, filename, args.display)
         roc_auc = plot_ROC(lbllist.numpy(), outlist.numpy(), dirname, filename, args.display)
-        plot_histogram(lbllist, outlist, dirname, filename, args.display)
+        plot_histogram(lbllist.numpy(), outlist.numpy(), dirname, filename, args.display)
 
         return roc_auc
     

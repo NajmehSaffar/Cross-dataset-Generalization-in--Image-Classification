@@ -9,12 +9,12 @@ from Baseline2.models import *
 
 
 class Tester:
-    def __init__(self, df_tst_b, df_tst_a, data_dir, setup, exp):
+    def __init__(self, df_tst_b, df_tst_a, data_dir, backup, setup, exp):
         
         self.device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
         print("Device: ", self.device)
         self.data_dir = data_dir
-        self.backup = "/backup01"
+        self.backup = backup
         self.setup = setup
         self.exp = exp
         self.num_workers = 4 * torch.cuda.device_count()
@@ -28,10 +28,10 @@ class Tester:
         self.model_voi, self.model_dm, self.model_enc, self.model_dec_h = self.build_model()
 
         # Load the model
-        args = self.load_model()
-        
-        self.im_size = args.im_size
-        self.batch_size = args.batch_size
+        #args = 
+        self.load_model()
+        #self.im_size = args.im_size
+        self.batch_size = 256 #args.batch_size
         
         self.transform = transforms.Compose([
             transforms.ToTensor(),
@@ -85,8 +85,8 @@ class Tester:
        
         self.model_enc.load_state_dict(checkpoint['model_enc_state_dict']) 
         self.model_voi.load_state_dict(checkpoint['model_voi_state_dict']) 
-        args = checkpoint['args']
-        return args
+        #args = checkpoint['args']
+        #return args
    
         
     def test(self, test_loader):

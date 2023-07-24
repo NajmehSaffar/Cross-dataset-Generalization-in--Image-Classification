@@ -8,6 +8,7 @@ from sklearn.metrics import classification_report, confusion_matrix, accuracy_sc
 from sklearn import metrics
 import matplotlib.pyplot as plt
 import pandas as pd
+from IPython.display import display as render
 
 SMALL_SIZE = 8
 MEDIUM_SIZE = 10
@@ -95,7 +96,7 @@ def plot_CONFMAT(lbllist, predlist, dirname, filename, display = False):
     # Save the crosstab as a CSV file
     df_confusion.to_csv("{}CONF{}.csv".format(dirname, filename))
     if display:
-        display(df_confusion)
+        render(df_confusion)
     print("\n")
 
     
@@ -109,8 +110,8 @@ def plot_histogram(lbllist, scorelist, dirname, filename, display = False):
     plt.rc('font', size=BIGGER_SIZE)
     plt.rc('axes', labelsize=BIGGER_SIZE)    # fontsize of the x and y labels
     kwargs = dict(alpha=0.5, bins=50, edgecolor='#8e8e8e', linewidth=0.5)
-    plt.hist(x1.numpy(), **kwargs, color='#44aa99', label='Class = 1')
-    plt.hist(x0.numpy(), **kwargs, color='#991100', label='Class = 0')
+    plt.hist(x1, **kwargs, color='#44aa99', label='Class = 1')
+    plt.hist(x0, **kwargs, color='#991100', label='Class = 0')
     plt.gca().set(title='Histogram of scores provided by classifiers', xlabel='Scores', ylabel='Frequency')
     plt.legend(loc="upper right")
     fig = plt.gcf() #Grab the figure instance before you call show

@@ -9,12 +9,12 @@ from SupCon.model import *
 from SupCon.loss import SupConLoss
 
 class Tester:
-    def __init__(self, df_tst_b, df_tst_a, data_dir, setup, exp):
+    def __init__(self, df_tst_b, df_tst_a, data_dir, backup, setup, exp):
         
         self.device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
         print("Device: ", self.device)
         self.data_dir = data_dir
-        self.backup = "/backup01"
+        self.backup = backup
         self.setup = setup
         self.exp = exp
         self.num_workers = 4 * torch.cuda.device_count()
@@ -32,10 +32,10 @@ class Tester:
         self.model, self.model_head = self.build_model()
 
         # Load the model
-        args = self.load_model()
-        
-        self.im_size = args.im_size
-        self.batch_size = args.batch_size
+        #args = 
+        self.load_model()
+        self.im_size = 128 #args.im_size
+        self.batch_size = 256 #args.batch_size
         
         self.transform = transforms.Compose([
             transforms.ToTensor(),
@@ -85,8 +85,8 @@ class Tester:
         self.model_head.load_state_dict(checkpoint['model_head_state_dict']) 
         self.normal_vec_enc = checkpoint['normal_vec_enc']
         self.normal_vec_proj = checkpoint['normal_vec_proj']
-        args = checkpoint['args']
-        return args
+        #args = checkpoint['args']
+        #return args
         
         
     def test(self, test_loader, proj_isTrue=False):
